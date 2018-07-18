@@ -8,17 +8,20 @@ export default class Game extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          position: null
         }
       ],
       xIsNext: true,
       stepNumber: 0
     };
   }
+
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    // do nothing if game already ended, or the square is already taken
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -26,19 +29,22 @@ export default class Game extends React.Component {
     this.setState({
       history: history.concat([
         {
-          squares: squares
+          squares: squares,
+          position: getPosition(i)
         }
       ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
   }
+
   jumpTo(step) {
     this.setState({
       stepNumber: step,
       xIsNext: step % 2 === 0
     });
   }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -61,6 +67,28 @@ export default class Game extends React.Component {
       </div>
     );
   }
+}
+
+/**
+ * Get column and row number of a square index
+ * @param {*} i
+ */
+function getPosition(i) {
+  let row, col;
+  if (i > 5) {
+    row = 3;
+    col = i - 5;
+  } else if (i > 2) {
+    row = 2;
+    col = i - 2;
+  } else {
+    row = 1;
+    col = i + 1;
+  }
+  return {
+    row,
+    col
+  };
 }
 
 function calculateWinner(squares) {
