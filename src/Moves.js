@@ -1,8 +1,14 @@
 import React from "react";
 
+const moveStyle = (move, currentStep) => {
+  if (move === currentStep) {
+    return {
+      fontWeight: "bold"
+    };
+  }
+};
 export default function Moves(props) {
   const moves = props.history.map((step, move) => {
-    console.log("step: ", step, move);
     let desc;
     if (move > 0) {
       desc = `Go to move #${move} (Row: ${step.position.row} Column: ${
@@ -13,7 +19,12 @@ export default function Moves(props) {
     }
     return (
       <li key={move}>
-        <button onClick={() => props.onClick(move)}>{desc}</button>
+        <button
+          style={moveStyle(move, props.currentStep)}
+          onClick={() => props.onClick(move)}
+        >
+          {desc}
+        </button>
       </li>
     );
   });

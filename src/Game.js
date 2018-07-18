@@ -62,7 +62,11 @@ export default class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <Moves history={history} onClick={move => this.jumpTo(move)} />
+          <Moves
+            history={history}
+            currentStep={this.state.stepNumber}
+            onClick={move => this.jumpTo(move)}
+          />
         </div>
       </div>
     );
