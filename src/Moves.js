@@ -28,5 +28,10 @@ export default function Moves(props) {
       </li>
     );
   });
-  return <ol>{moves}</ol>;
+  return (
+    <div>
+      <h3>Moves</h3>
+      <ol>{moves}</ol>
+    </div>
+  );
 }
