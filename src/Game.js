@@ -13,16 +13,7 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.props.xIsNext ? "X" : "O";
-    this.setState({
-      history: history.concat([
-        {
-          squares: squares,
-          position: getPosition(i)
-        }
-      ]),
-      stepNumber: history.length,
-      xIsNext: !this.props.xIsNext
-    });
+    this.props.addMove(getPosition(i), squares);
   }
 
   jumpTo(step) {
@@ -118,7 +109,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMove: () => dispatch({ type: "ADD_MOVE" })
+    addMove: (i, squares) =>
+      dispatch({ type: "ADD_MOVE", squares: squares, index: i })
   };
 };
 

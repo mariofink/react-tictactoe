@@ -9,6 +9,21 @@ const initialState = {
   stepNumber: 0
 };
 export default (state = initialState, action) => {
-  console.log("REDUCER");
-  return state;
+  switch (action.type) {
+    case "ADD_MOVE":
+      const updatedHistory = JSON.parse(JSON.stringify(state.history));
+      updatedHistory.push({
+        squares: action.squares,
+        position: action.index
+      });
+      const newState = {
+        ...state,
+        history: updatedHistory,
+        stepNumber: state.history.length,
+        xIsNext: !state.xIsNext
+      };
+      return newState;
+    default:
+      return state;
+  }
 };
