@@ -16,13 +16,18 @@ export default (state = initialState, action) => {
         squares: action.squares,
         position: action.index
       });
-      const newState = {
+      return {
         ...state,
         history: updatedHistory,
         stepNumber: state.history.length,
         xIsNext: !state.xIsNext
       };
-      return newState;
+    case "JUMP_TO":
+      return {
+        ...state,
+        stepNumber: action.step,
+        xIsNext: action.step % 2 === 0
+      };
     default:
       return state;
   }
