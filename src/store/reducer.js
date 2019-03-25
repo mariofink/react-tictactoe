@@ -11,7 +11,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "ADD_MOVE":
-      const updatedHistory = JSON.parse(JSON.stringify(state.history));
+      const updatedHistory = JSON.parse(JSON.stringify(state.history)); // make a deep copy
       updatedHistory.push({
         squares: action.squares,
         position: action.index
