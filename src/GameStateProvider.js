@@ -4,9 +4,9 @@ const DEFAULT_STATE = {
   history: [],
   xIsNext: true,
   stepNumber: 0,
-  setXisNext: () => {},
-  setHistory: () => {},
-  setStepNumber: () => {}
+  setXisNext: xIsNext => {},
+  setHistory: history => {},
+  setStepNumber: stepNumber => {}
 };
 export const GameState = createContext(DEFAULT_STATE);
 
