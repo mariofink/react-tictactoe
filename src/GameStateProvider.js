@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
   setHistory: () => {},
   setStepNumber: () => {}
 };
-const GameContext = createContext(DEFAULT_STATE);
+export const GameState = createContext(DEFAULT_STATE);
 
 export default function GameStateProvider({ children }) {
   const [history, setHistory] = useState([
@@ -20,7 +20,7 @@ export default function GameStateProvider({ children }) {
   const [xIsNext, setXisNext] = useState(true);
   const [stepNumber, setStepNumber] = useState(0);
   return (
-    <GameContext.Provider
+    <GameState.Provider
       value={{
         history,
         xIsNext,
@@ -31,6 +31,6 @@ export default function GameStateProvider({ children }) {
       }}
     >
       {children}
-    </GameContext.Provider>
+    </GameState.Provider>
   );
 }

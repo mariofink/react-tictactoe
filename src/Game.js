@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { GameState } from "./GameStateProvider";
 import Board from "./Board";
 import Moves from "./Moves";
 
-export default function Game(props) {
-  const [history, setHistory] = useState([
-    {
-      squares: Array(9).fill(null),
-      position: null
-    }
-  ]);
-  const [xIsNext, setXisNext] = useState(true);
-  const [stepNumber, setStepNumber] = useState(0);
+export default function Game() {
+  const {
+    history,
+    stepNumber,
+    xIsNext,
+    setStepNumber,
+    setXisNext,
+    setHistory
+  } = useContext(GameState);
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
 
@@ -49,17 +50,26 @@ export default function Game(props) {
     <div>
       <h1>Tic Tac Toe (React)</h1>
       <div className="game">
-        <div className="game-board">
-          <Board squares={current.squares} onClick={i => handleClick(i)} />
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <Moves
-            history={history}
-            currentStep={stepNumber}
-            onClick={move => jumpTo(move)}
-          />
-        </div>
+        <GameState.Consumer>
+          {context => (
+            <>
+              <div className="game-board">
+                <Board
+                  squares={current.squares}
+                  onClick={i => handleClick(i)}
+                />
+              </div>
+              <div className="game-info">
+                <div>{status}</div>
+                <Moves
+                  history={context.history}
+                  currentStep={context.stepNumber}
+                  onClick={move => jumpTo(move)}
+                />
+              </div>
+            </>
+          )}
+        </GameState.Consumer>
       </div>
     </div>
   );
