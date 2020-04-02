@@ -15,6 +15,7 @@ export default function Game(props) {
   const winner = calculateWinner(current.squares);
 
   const handleClick = i => {
+    const updatedHistory = history.slice(0, stepNumber + 1);
     const squares = current.squares.slice();
     // do nothing if game already ended, or the square is already taken
     if (calculateWinner(squares) || squares[i]) {
@@ -22,14 +23,14 @@ export default function Game(props) {
     }
     squares[i] = xIsNext ? "X" : "O";
     setHistory(
-      history.concat([
+      updatedHistory.concat([
         {
           squares: squares,
           position: getPosition(i)
         }
       ])
     );
-    setStepNumber(history.length);
+    setStepNumber(updatedHistory.length);
     setXisNext(!xIsNext);
   };
 
