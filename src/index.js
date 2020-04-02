@@ -2,5 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import Game from "./Game";
+import GameStateProvider from "./GameStateProvider";
 
-ReactDOM.render(<Game />, document.getElementById("root"));
+ReactDOM.render(
+  <GameStateProvider>
+    <Game />
+  </GameStateProvider>,
+  document.getElementById("root")
+);
