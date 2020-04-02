@@ -32,7 +32,7 @@ class Game extends React.Component {
     }
     return (
       <div>
-        <h1>Tic Tac Toe (React)</h1>
+        <h1>Tic Tac Toe (React & Redux)</h1>
         <div className="game">
           <div className="game-board">
             <Board
@@ -112,7 +112,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
