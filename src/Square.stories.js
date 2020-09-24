@@ -4,7 +4,7 @@ import Square from "./Square";
 
 export default {
   component: Square,
-  title: "Square",
+  title: "Game/Square",
 };
 
 const Template = (args) => <Square {...args} />;

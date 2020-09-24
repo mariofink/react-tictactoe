@@ -4,7 +4,7 @@ import Board from "./Board";
 
 export default {
   component: Board,
-  title: "Board",
+  title: "Game/Board",
 };
 
 const Template = (args) => <Board {...args} />;
