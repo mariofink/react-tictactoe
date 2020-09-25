@@ -3,55 +3,44 @@ import { connect } from "react-redux";
 import Board from "./Board";
 import Moves from "./Moves";
 
-class Game extends React.Component {
-  handleClick(i) {
-    const history = this.props.history.slice(0, this.props.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    // do nothing if game already ended, or the square is already taken
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = this.props.xIsNext ? "X" : "O";
-    this.props.addMove(getPosition(i), squares);
+function Game({ history, xIsNext, jumpTo, stepNumber, addMove }) {
+  const current = history[stepNumber];
+  const winner = calculateWinner(current.squares);
+  let status;
+  if (winner) {
+    status = `Winner: ${winner}`;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
   }
-
-  jumpTo(step) {
-    this.props.jumpTo(step);
-  }
-
-  render() {
-    const history = this.props.history;
-    const current = history[this.props.stepNumber];
-    const winner = calculateWinner(current.squares);
-    let status;
-    if (winner) {
-      status = `Winner: ${winner}`;
-    } else {
-      status = "Next player: " + (this.props.xIsNext ? "X" : "O");
-    }
-    return (
-      <div>
-        <h1>Tic Tac Toe (React & Redux)</h1>
-        <div className="game">
-          <div className="game-board">
-            <Board
-              squares={current.squares}
-              onClick={i => this.handleClick(i)}
-            />
-          </div>
-          <div className="game-info">
-            <div>{status}</div>
-            <Moves
-              history={history}
-              currentStep={this.props.stepNumber}
-              onClick={move => this.jumpTo(move)}
-            />
-          </div>
+  return (
+    <div>
+      <h1>Tic Tac Toe (React & Redux)</h1>
+      <div className="game">
+        <div className="game-board">
+          <Board
+            squares={current.squares}
+            onClick={(i) => {
+              const squares = current.squares;
+              // do nothing if game already ended, or the square is already taken
+              if (calculateWinner(squares) || squares[i]) {
+                return;
+              }
+              squares[i] = xIsNext ? "X" : "O";
+              addMove(getPosition(i), squares);
+            }}
+          />
+        </div>
+        <div className="game-info">
+          <div>{status}</div>
+          <Moves
+            history={history}
+            currentStep={stepNumber}
+            onClick={(move) => jumpTo(move)}
+          />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 /**
@@ -72,7 +61,7 @@ function getPosition(i) {
   }
   return {
     row,
-    col
+    col,
   };
 }
 
@@ -85,7 +74,7 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
   for (let line of lines) {
     const [a, b, c] = line;
@@ -96,19 +85,19 @@ function calculateWinner(squares) {
   return null;
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     history: state.history,
     xIsNext: state.xIsNext,
-    stepNumber: state.stepNumber
+    stepNumber: state.stepNumber,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addMove: (i, squares) =>
       dispatch({ type: "ADD_MOVE", squares: squares, index: i }),
-    jumpTo: step => dispatch({ type: "JUMP_TO", step: step })
+    jumpTo: (step) => dispatch({ type: "JUMP_TO", step: step }),
   };
 };
 
