@@ -1,9 +1,9 @@
 import React from "react";
 import Square from "./Square";
 
-export default props => {
+export default ({ squares, onClick }) => {
   function renderSquare(i) {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
+    return <Square value={squares[i]} onClick={() => onClick(i)} />;
   }
   return (
     <div>
