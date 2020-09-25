@@ -5,6 +5,7 @@ import Moves from "./Moves";
 export default {
   component: Moves,
   title: "Game/Moves",
+  argTypes: { onClick: { action: "clicked" } },
 };
 
 const Template = (args) => <Moves {...args} />;
@@ -29,6 +30,5 @@ Default.args = {
       position: { row: 1, col: 3 },
     },
   ],
-  onClick: () => {},
   currentStep: 3,
 };
