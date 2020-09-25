@@ -20,13 +20,9 @@ const store = {
           squares: ["O", "O", ...Array(7).fill(null)],
           position: { row: 1, col: 2 },
         },
-        {
-          squares: ["O", "O", "O", ...Array(6).fill(null)],
-          position: { row: 1, col: 3 },
-        },
       ],
       xIsNext: true,
-      stepNumber: 3,
+      stepNumber: 2,
     };
   },
   subscribe: () => 0,
