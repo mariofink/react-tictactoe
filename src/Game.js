@@ -6,12 +6,10 @@ import Moves from "./Moves";
 function Game({ history, xIsNext, jumpTo, stepNumber, addMove }) {
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
-  let status;
-  if (winner) {
-    status = `Winner: ${winner}`;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
+  const status = winner
+    ? `Winner: ${winner}`
+    : `Next player: ${xIsNext ? "X" : "O"}`;
+
   return (
     <div>
       <h1>Tic Tac Toe (React & Redux)</h1>
