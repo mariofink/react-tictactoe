@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import reducer from "./store/reducer";
+import tictactoeReducer from "./store/tictactoeSlice";
 import "./index.css";
 import Game from "./Game";
 
-const store = configureStore({ reducer: reducer });
+const store = configureStore({ reducer: tictactoeReducer });
 
 ReactDOM.render(
   <Provider store={store}>

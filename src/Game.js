@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createAction } from "@reduxjs/toolkit";
+import { addMove, jumpTo } from "./store/tictactoeSlice";
 import Board from "./Board";
 import Moves from "./Moves";
 
@@ -92,8 +92,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const addMove = createAction("ADD_MOVE");
-const jumpTo = createAction("JUMP_TO");
 const mapDispatchToProps = (dispatch) => {
   return {
     addMove: (i, squares) => dispatch(addMove({ squares, index: i })),
