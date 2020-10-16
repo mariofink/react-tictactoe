@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createAction } from "@reduxjs/toolkit";
 import Board from "./Board";
 import Moves from "./Moves";
 
@@ -18,7 +19,7 @@ function Game({ history, xIsNext, jumpTo, stepNumber, addMove }) {
           <Board
             squares={current.squares}
             onClick={(i) => {
-              const squares = current.squares;
+              const squares = [...current.squares];
               // do nothing if game already ended, or the square is already taken
               if (calculateWinner(squares) || squares[i]) {
                 return;
@@ -91,11 +92,12 @@ const mapStateToProps = (state) => {
   };
 };
 
+const addMove = createAction("ADD_MOVE");
+const jumpTo = createAction("JUMP_TO");
 const mapDispatchToProps = (dispatch) => {
   return {
-    addMove: (i, squares) =>
-      dispatch({ type: "ADD_MOVE", squares: squares, index: i }),
-    jumpTo: (step) => dispatch({ type: "JUMP_TO", step: step }),
+    addMove: (i, squares) => dispatch(addMove({ squares, index: i })),
+    jumpTo: (step) => dispatch(jumpTo({ step: step })),
   };
 };
 
