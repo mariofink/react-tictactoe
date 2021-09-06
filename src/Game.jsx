@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { GameState } from "./GameStateProvider";
 import Board from "./Board";
 import Moves from "./Moves";

@@ -1,5 +1,3 @@
-import React from "react";
-
 const moveStyle = (move, currentStep) => {
   if (move === currentStep) {
     return {
