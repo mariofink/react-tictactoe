@@ -1,11 +1,14 @@
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import "./index.css";
 import Game from "./Game";
 import GameStateProvider from "./GameStateProvider";
 
 ReactDOM.render(
-  <GameStateProvider>
-    <Game />
-  </GameStateProvider>,
+  <React.StrictMode>
+    <GameStateProvider>
+      <Game />
+    </GameStateProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
