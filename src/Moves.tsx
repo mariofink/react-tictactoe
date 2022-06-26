@@ -1,13 +1,19 @@
-const moveStyle = (move, currentStep) => {
+const moveStyle = (move: number, currentStep: number) => {
   if (move === currentStep) {
     return {
-      fontWeight: 700
+      fontWeight: 700,
     };
   }
 };
 
-export default function Moves(props) {
-  const moves = props.history.map((step, move) => {
+interface MovesProps {
+  history: any[];
+  currentStep: number;
+  onClick: (move: number) => void;
+}
+
+export default function Moves({ history, currentStep, onClick }: MovesProps) {
+  const moves = history.map((step, move) => {
     let desc;
     if (move > 0) {
       desc = `Go to move #${move} (Row: ${step.position.row} Column: ${step.position.col})`;
@@ -17,8 +23,8 @@ export default function Moves(props) {
     return (
       <li key={move}>
         <button
-          style={moveStyle(move, props.currentStep)}
-          onClick={() => props.onClick(move)}
+          style={moveStyle(move, currentStep)}
+          onClick={() => onClick(move)}
         >
           {desc}
         </button>

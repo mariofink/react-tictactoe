@@ -1,8 +1,13 @@
 import Square from "./Square";
 
-export default props => {
-  function renderSquare(i) {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
+interface BoardProps {
+  squares: any;
+  onClick: (i: number) => void;
+}
+
+export default ({ squares, onClick }: BoardProps) => {
+  function renderSquare(i: number) {
+    return <Square value={squares[i]} onClick={() => onClick(i)} />;
   }
   return (
     <div>

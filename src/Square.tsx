@@ -1,7 +1,12 @@
-export default function Square(props) {
+interface SquareProps {
+  value: string;
+  onClick: () => void;
+}
+
+export default function Square({ value, onClick }: SquareProps) {
   return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
+    <button className="square" onClick={onClick}>
+      {value}
     </button>
   );
 }

@@ -10,12 +10,14 @@ export default function Game() {
     xIsNext,
     setStepNumber,
     setXisNext,
-    setHistory
+    setHistory,
   } = useContext(GameState);
-  const current = history[stepNumber];
+  const current: { squares: any[]; position: any } | undefined =
+    history[stepNumber];
+  if (typeof current === "undefined") return;
   const winner = calculateWinner(current.squares);
 
-  const handleClick = i => {
+  const handleClick = (i: number) => {
     const updatedHistory = history.slice(0, stepNumber + 1);
     const squares = current.squares.slice();
     // do nothing if game already ended, or the square is already taken
@@ -27,20 +29,20 @@ export default function Game() {
       updatedHistory.concat([
         {
           squares: squares,
-          position: getPosition(i)
-        }
+          position: getPosition(i),
+        },
       ])
     );
     setStepNumber(updatedHistory.length);
     setXisNext(!xIsNext);
   };
 
-  const jumpTo = step => {
+  const jumpTo = (step: number) => {
     setStepNumber(step);
     setXisNext(step % 2 === 0);
   };
 
-  let status;
+  let status: string;
   if (winner) {
     status = `Winner: ${winner}`;
   } else {
@@ -51,12 +53,12 @@ export default function Game() {
       <h1>Tic Tac Toe (React)</h1>
       <div className="game">
         <GameState.Consumer>
-          {context => (
+          {(context) => (
             <>
               <div className="game-board">
                 <Board
                   squares={current.squares}
-                  onClick={i => handleClick(i)}
+                  onClick={(i) => handleClick(i)}
                 />
               </div>
               <div className="game-info">
@@ -64,7 +66,7 @@ export default function Game() {
                 <Moves
                   history={context.history}
                   currentStep={context.stepNumber}
-                  onClick={move => jumpTo(move)}
+                  onClick={(move: number) => jumpTo(move)}
                 />
               </div>
             </>
@@ -79,7 +81,7 @@ export default function Game() {
  * Get column and row number of a square index
  * @param {*} i
  */
-function getPosition(i) {
+function getPosition(i: number) {
   let row, col;
   if (i > 5) {
     row = 3;
@@ -93,11 +95,11 @@ function getPosition(i) {
   }
   return {
     row,
-    col
+    col,
   };
 }
 
-function calculateWinner(squares) {
+function calculateWinner(squares: any[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -106,7 +108,7 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
   for (let line of lines) {
     const [a, b, c] = line;
