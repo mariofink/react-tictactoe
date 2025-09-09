@@ -6,7 +6,7 @@ interface SquareProps {
 export default function Square({ value, onClick }: SquareProps) {
   return (
     <button className="square" onClick={onClick}>
-      {value}
+      {value === "X" ? "❌" : value === "O" ? "⭕" : ""}
     </button>
   );
 }
